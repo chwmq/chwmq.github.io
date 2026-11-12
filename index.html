@@ -162,7 +162,7 @@
                 <!-- 用 placeholder 做默认提示文字，不作为真实输入值 -->
                 <input class="search-input" id="searchInput" type="text" placeholder=":("
                        autocomplete="off" spellcheck="false">
-                <button class="arrow-btn" id="searchBtn" type="button" title="打开文件" aria-label="打开文件">
+                <button class="arrow-btn" id="searchBtn" type="button" title="" aria-label="">
                     <svg viewBox="0 0 24 24">
                         <path d="M5 12h14M14 7l5 5-5 5"></path>
                     </svg>
@@ -202,7 +202,7 @@ function openTarget() {
 
 function refreshHint() {
     const fileName = buildFileName(input.value);
-    hint.textContent = fileName ? '@' + fileName : '';
+    hint.textContent = fileName ? '@' ;
 }
 
 btn.addEventListener('click', openTarget);
