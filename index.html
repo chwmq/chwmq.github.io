@@ -1,115 +1,96 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>选购终端</title>
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-body{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  background:#ffffff;
-  color:#00cc00;
-  font-family:monospace;
-  gap:40px;
-}
-.ascii-art{
-  white-space:pre;
-  font-size:14px;
-  line-height:1.1;
-}
-/* 终端样式输入区域 */
-.terminal{
-  background:#0c0c0c;
-  border:1px solid #00cc00;
-  border-radius:6px;
-  padding:16px 20px;
-  box-shadow: 0 0 16px #00cc0066;
-  min-width:480px;
-  font-size:20px;
-}
-.terminal-prompt{
-  color:#00cc00;
-  display:inline;
-}
-.terminal-input{
-  background:transparent;
-  border:none;
-  outline:none;
-  color:#00cc00;
-  font-family:monospace;
-  font-size:20px;
-  width:calc(100% - 140px);
-  caret-color:#00cc00;
-}
-/* 闪烁光标效果 */
-@keyframes blink{
-  0%,50%{opacity:1;}
-  51%,100%{opacity:0;}
-}
-.blink-cursor{
-  display:inline-block;
-  width:10px;
-  height:22px;
-  background:#00cc00;
-  animation: blink 1s infinite;
-  vertical-align:text-bottom;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHWMQ</title>
+    <style>
+        @font-face {
+            font-family: "PeacekeeperEliteBold";
+            src: url('Tencent Peacekeeper Elite Bold.ttf') format("truetype");
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+        }
+        .title {
+            font-family: "PeacekeeperEliteBold", sans-serif;
+            font-size: 88px;
+            font-weight: 900;
+            letter-spacing: 14px;
+            color: #111111;
+        }
+        .search-wrap {
+            display: flex;
+            align-items: center;
+            border: 2px solid #000000;
+            border-radius: 4px;
+        }
+        .search-input {
+            width: 320px;
+            height: 52px;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            background: transparent;
+            padding: 0 12px;
+        }
+        .arrow-btn {
+            background: #000000;
+            border: none;
+            cursor: pointer;
+            height: 52px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 0 2px 2px 0;
+        }
+        .arrow-btn svg {
+            width: 26px;
+            height: 26px;
+            stroke: #ffffff;
+            stroke-width: 2;
+            fill: none;
+        }
+    </style>
 </head>
 <body>
-<pre class="ascii-art">
-          _____                    _____                    _____                    _____                   _______         
-         /\    \                  /\    \                  /\    \                  /\    \                 /::\    \        
-        /::\    \                /::\____\                /::\____\                /::\____\               /::::\    \       
-       /::::\    \              /:::/    /               /:::/    /               /::::|   |              /::::::\    \      
-      /::::::\    \            /:::/    /               /:::/   _/___            /:::::|   |             /::::::::\    \     
-     /:::/\:::\    \          /:::/    /               /:::/   /\    \          /::::::|   |            /:::/~~\:::\    \    
-    /:::/  \:::\    \        /:::/____/               /:::/   /::\____\        /:::/|::|   |           /:::/    \:::\    \   
-   /:::/    \:::\    \      /::::\    \              /:::/   /:::/    /       /:::/ |::|   |          /:::/    / \:::\    \  
-  /:::/    / \:::\    \    /::::::\    \   _____    /:::/   /:::/   _/___    /:::/  |::|___|______   /:::/____/   \:::\____\ 
- /:::/    /   \:::\    \  /:::/\:::\    \ /\    \  /:::/___/:::/   /\    \  /:::/   |::::::::\    \ |:::|    |     |:::|    |
-/:::/____/     \:::\____\/:::/  \:::\    /::\____\|:::|   /:::/   /::\____\/:::/    |:::::::::\____\|:::|____|     |:::|____|
-\:::\    \      \::/    /\::/    \:::\  /:::/    /|:::|__/:::/   /:::/    /\::/    / ~~~~~/:::/    / \:::\   _\___/:::/    / 
- \:::\    \      \/____/  \/____/ \:::\/:::/    /  \:::\/:::/   /:::/    /  \/____/      /:::/    /   \:::\ |::| /:::/    /  
-  \:::\    \                       \::::::/    /    \::::::/   /:::/    /               /:::/    /     \:::\|::|/:::/    /   
-   \:::\    \                       \::::/    /      \::::/___/:::/    /               /:::/    /       \::::::::::/    /    
-    \:::\    \                      /:::/    /        \:::\__/:::/    /               /:::/    /         \::::::::/    /     
-     \:::\    \                    /:::/    /          \::::::::/    /               /:::/    /           \::::::/    /      
-      \:::\    \                  /:::/    /            \::::::/    /               /:::/    /             \::::/____/       
-       \:::\____\                /:::/    /              \::::/    /               /:::/    /               |::|    |        
-        \::/    /                \::/    /                \::/    /                \::/    /                |::|____|        
-         \/____/                  \/____/                  \/____/                  \/____/                 |::|____|
-</pre>
+    <div class="title">CHWMQ</div>
+    <div class="search-wrap">
+        <input class="search-input" type="text" placeholder="">
+        <button class="arrow-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M5 12h14M14 7l5 5-5 5"></path>
+            </svg>
+        </button>
+    </div>
+    <script>
+        const input = document.querySelector('.search-input');
+        const btn = document.querySelector('.arrow-btn');
 
-<div class="terminal">
-  <span class="terminal-prompt">root@select:~$ </span>
-  <span class="blink-cursor"></span>
-  <input class="terminal-input" type="text" id="inputBox">
-</div>
-
-<script>
-const inputBox = document.getElementById('inputBox');
-// 回车提交
-inputBox.addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    const val = this.value.trim();
-    if(val){
-      alert(`选购指令：${val}`);
-      this.value = '';
-    }
-  }
-})
-// 自动聚焦
-inputBox.focus();
-</script>
+        function submit() {
+            const val = input.value.trim();
+            if(val) {
+                alert(`输入内容：${val}`);
+            }
+        }
+        btn.addEventListener('click', submit);
+        input.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') submit();
+        })
+    </script>
 </body>
 </html>
