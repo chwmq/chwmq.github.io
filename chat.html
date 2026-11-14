@@ -15,6 +15,13 @@
   font-family: system-ui, -apple-system, sans-serif;
   box-sizing: border-box;
 }
+.title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  color: #000;
+}
 .form-item {
   margin-bottom: 16px;
 }
@@ -64,6 +71,7 @@
 <body>
 
 <div class="form-wrap">
+  <h2 class="title">"匿名"留言</h2>
   <form id="msgForm">
     <!-- Web3Forms密钥 -->
     <input type="hidden" name="access_key" value="">
@@ -75,10 +83,10 @@
     <input type="hidden" name="device" id="deviceInput">
 
     <div class="form-item">
-      <textarea name="message" placeholder="写下你的留言……" required></textarea>
+      <textarea name="message" placeholder=":(" required></textarea>
     </div>
 
-    <button class="submit-btn" type="submit">提交留言</button>
+    <button class="submit-btn" type="submit">提交</button>
   </form>
 </div>
 
@@ -111,10 +119,33 @@ getPublicIP().then(ip=>{
 });
 document.getElementById('deviceInput').value = navigator.userAgent;
 
+// ====================== Cookie 防频繁提交（冷却60秒，可自行修改） ======================
+const COOLDOWN_SECOND = 60;
+function getCookie(name) {
+  const arr = document.cookie.split('; ');
+  for(let item of arr) {
+    const [k,v] = item.split('=');
+    if(k === name) return v;
+  }
+  return null;
+}
+function setCookie(name, value, sec) {
+  const d = new Date();
+  d.setTime(d.getTime() + sec * 1000);
+  document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/`;
+}
+
 // 表单提交
 const form = document.querySelector('#msgForm');
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
+  const coolKey = "msg_cooldown";
+  const lastTime = getCookie(coolKey);
+  if(lastTime) {
+    alert("请求过于频繁，请稍后再试！");
+    return;
+  }
+
   const formData = new FormData(form);
   const btn = form.querySelector('.submit-btn');
   btn.disabled = true;
@@ -126,14 +157,15 @@ form.addEventListener('submit', async function(e) {
     });
     const result = await res.json();
     if(result.success) {
-      alert("✅ 密钥验证通过！留言提交成功");
+      setCookie(coolKey, "1", COOLDOWN_SECOND);
+      alert("提交成功");
       // 提交成功自动跳转到主页
-      window.location.href = "https://chwmq.github.io/";
+      window.location.href = "https://chwmq.github.io/code?=chat";
     } else {
-      alert("❌ 提交失败：" + result.message);
+      alert("提交失败：" + result.message);
     }
   }catch(err){
-    alert("❌ 网络错误，请稍后重试");
+    alert("网络错误，请稍后重试");
   }
   btn.disabled = false;
   btn.innerText = "提交留言";
