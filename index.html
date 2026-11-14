@@ -133,6 +133,20 @@
             fill: none;
         }
 
+        /* 匿名提问链接 */
+        .anon-link {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #000000;
+            text-decoration: underline;
+        }
+        .anon-link:hover {
+            color: #444444;
+        }
+
         /* 横屏手机 / 矮屏幕：整体再收一档，保证一屏放下 */
         @media (max-height: 520px) {
             .page {
@@ -171,6 +185,9 @@
 
             <!-- 显示将要打开的文件名，方便确认拼接结果 -->
             <div class="file-hint" id="fileHint"></div>
+
+            <!-- 新增：匿名提问链接 -->
+            <a class="anon-link" href="https://chwmq.github.io/chat.html" target="_blank" rel="noopener">匿名提问</a>
         </div>
     </main>
 
